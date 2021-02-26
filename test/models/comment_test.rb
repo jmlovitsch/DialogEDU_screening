@@ -20,6 +20,10 @@ class CommentTest < ActiveSupport::TestCase
     assert_not comment.update(article_id: "zero"), "Updated the comment"
   end
 
+  test "should not save comment with no content" do
+    comment = comments(:four)
+    assert_not comment.save, "Saved the comment with no content"
+  end
 
 
 end

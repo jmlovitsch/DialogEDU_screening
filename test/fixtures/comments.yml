@@ -12,4 +12,15 @@ three:
   content: MyText
   article: ""
 
+four:
+  content: ""
+  article: two
 
+
+five:
+  content: thisIsTheConent
+  article: three
+
+six:
+  content: MyText
+  article: two
