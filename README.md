@@ -28,6 +28,14 @@ DELETE /comments/:id
 
 To sample these request enter your developer tools in chome. Navigate to the console and create a fetch request. There are no required headers.
 
+
+PAGINATION:
+To access pagination include ?page="insert number", ?per_page="insert number" with either localhost:3000/comments || localhost:3000/articles
+
+e.g. localhost:3000/comments?page=5&per_page=3 => this will return page five with each page having 3 items( i.e. items 13,14,15)
+
+localhost:3000/articles?page=5&per_page=1&?search=porro => this will return page 5 with one article on each page filtered by the search results "porro".
+
 TESTS:
 
 To run behavior driven development tests execute "rails test" in the command line.
