@@ -1,6 +1,6 @@
 # README
 
-In order to use this API clone the repo down to your local machine. Navigate to the file and run <rails s>.
+In order to use this API clone the repo down to your local machine. Navigate to the file and run "rails s".
 
 Once the rails server is running the default address will be http://localhost:3000/.
 
@@ -30,4 +30,4 @@ To sample these request enter your developer tools in chome. Navigate to the con
 
 TESTS:
 
-To run behavior driven development tests execute <rails test> in the command line.
+To run behavior driven development tests execute "rails test" in the command line.
