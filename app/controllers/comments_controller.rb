@@ -70,7 +70,7 @@ class CommentsController < ApplicationController
         links << page_link(@comments.prev_page, 'prev') if @comments.prev_page
         links << page_link(@comments.next_page, 'next') if @comments.next_page
         links << page_link(@comments.total_pages, 'last') unless @comments.last_page?
-        response.header['Link'] = links.join(",") if links.present?
+        response.header['Nav-Page-Links'] = links.join(",") if links.present?
     end
 
 

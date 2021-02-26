@@ -7,3 +7,9 @@ one:
 two:
   content: MyText
   article: two
+
+three:
+  content: MyText
+  article: ""
+
+

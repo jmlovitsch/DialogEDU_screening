@@ -70,7 +70,7 @@ class ArticlesController < ApplicationController
         links << page_link(@articles.prev_page, 'prev') if @articles.prev_page
         links << page_link(@articles.next_page, 'next') if @articles.next_page
         links << page_link(@articles.total_pages, 'last') unless @articles.last_page?
-        response.header['Link'] = links.join(",") if links.present?
+        response.header['Nav-Page-Links'] = links.join(",") if links.present?
     end
 
 
