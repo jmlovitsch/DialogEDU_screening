@@ -11,10 +11,12 @@ class Article < ApplicationRecord
     max_paginates_per 25
 
     def self.search_articles(search)
-        print self
-        self.select do |article|
+        @newArray = self.select do |article|
             article.title.include?(search) || article.body.include?(search)
         end
+
+
+        @newArray
     end
 
 

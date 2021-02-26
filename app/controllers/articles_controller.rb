@@ -2,13 +2,15 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
   # GET /articles
   def index
+    
     if params[:search]
         @articles = Article.search_articles(params[:search])
     else
         @articles = Article.all
+        @articles = @articles.page(page).per(per_page)
+        set_pagination_headers
     end
-    @articles = @articles.page(page).per(per_page)
-    set_pagination_headers
+
     render json: @articles
 
   end
