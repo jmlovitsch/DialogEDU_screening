@@ -36,6 +36,11 @@ e.g. localhost:3000/comments?page=5&per_page=3 => this will return page five wit
 
 localhost:3000/articles?page=5&per_page=1&?search=porro => this will return page 5 with one article on each page filtered by the search results "porro".
 
+PAGE LINKS:
+
+Navigation page links are present in the header under "Nav-Page-Links" and can be used by the font end to enable links to navigate between pages
+
+
 TESTS:
 
 To run behavior driven development tests execute "rails test" in the command line.
