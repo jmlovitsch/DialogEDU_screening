@@ -4,12 +4,13 @@ class CommentsController < ApplicationController
   # GET /comments
   def index
     if params[:article_id]
-        @comments = @articles.find(id: params[:article_id]).comments
-        render json: @comments
+        @comments = Comment.comments_by_article(params[:article_id])
     else
         @comments = Comment.all
-        render json: @comments
     end
+    @comments = @comments.page(page).per(per_page)
+    set_pagination_headers
+    render json: @comments
   end
 
   # GET /comments/1
@@ -52,4 +53,29 @@ class CommentsController < ApplicationController
     def comment_params
       params.require(:comment).permit(:content, :article_id)
     end
+
+    def page
+        @page ||= params[:page]
+    end
+
+    def per_page
+        @per_page ||= params[:per_page]
+    end
+
+    #can be used by the font end to enable links to navigate between pages
+    def set_pagination_headers
+        response.header['X-Total-Articles'] = @comments.count
+        links = []
+        links << page_link(1, 'first') unless @comments.first_page?
+        links << page_link(@comments.prev_page, 'prev') if @comments.prev_page
+        links << page_link(@comments.next_page, 'next') if @comments.next_page
+        links << page_link(@comments.total_pages, 'last') unless @comments.last_page?
+        response.header['Link'] = links.join(",") if links.present?
+    end
+
+
+    def page_link(page, rel)
+        "<#{articles_url(request.query_parameters.merge(page: page))}>; rel='#{rel}'"
+    end
+
 end

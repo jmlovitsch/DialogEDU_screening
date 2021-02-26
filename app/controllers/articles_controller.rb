@@ -1,15 +1,16 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
-
   # GET /articles
   def index
     if params[:search]
-        @articles = @articles.select { |article| article.title.include?(params[:search]) || article.body.include?(params[:search]) }
-        render json: @articles
+        @articles = Article.search_articles(params[:search])
     else
         @articles = Article.all
-        render json: @articles
     end
+    @articles = @articles.page(page).per(per_page)
+    set_pagination_headers
+    render json: @articles
+
   end
 
   # GET /articles/1
@@ -52,4 +53,33 @@ class ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit(:title, :body)
     end
+
+    def page
+        @page ||= params[:page]
+    end
+
+    def per_page
+        @per_page ||= params[:per_page]
+    end
+
+    #can be used by the font end to enable links to navigate between pages
+    def set_pagination_headers
+        response.header['X-Total-Articles'] = @articles.count
+        links = []
+        links << page_link(1, 'first') unless @articles.first_page?
+        links << page_link(@articles.prev_page, 'prev') if @articles.prev_page
+        links << page_link(@articles.next_page, 'next') if @articles.next_page
+        links << page_link(@articles.total_pages, 'last') unless @articles.last_page?
+        response.header['Link'] = links.join(",") if links.present?
+    end
+
+
+    def page_link(page, rel)
+        "<#{articles_url(request.query_parameters.merge(page: page))}>; rel='#{rel}'"
+    end
+
+
+
+
+
 end
